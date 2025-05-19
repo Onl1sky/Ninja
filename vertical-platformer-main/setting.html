@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Setări</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .settings-box {
+      background-color: white;
+      padding: 30px 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 400px;
+    }
+
+    .settings-box h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2c3e50;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group input[type="text"],
+    .form-group select,
+    .form-group input[type="range"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .form-group input[type="range"] {
+      margin-top: 4px;
+    }
+
+    .range-value {
+      text-align: right;
+      font-size: 12px;
+      margin-top: 2px;
+      color: #555;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .saved-message {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="settings-box">
+    <h2>⚙️ Setări</h2>
+
+    <div class="form-group">
+      <label for="server">Adresa Serverului:</label>
+      <input type="text" id="server" placeholder="ex: http://localhost:3000">
+    </div>
+
+    <div class="form-group">
+      <label for="volume">Volum principal:</label>
+      <input type="range" id="volume" min="0" max="100" value="50">
+      <div class="range-value" id="volumeValue">50%</div>
+    </div>
+
+    <div class="form-group">
+      <label for="effects">Volum efecte:</label>
+      <input type="range" id="effects" min="0" max="100" value="70">
+      <div class="range-value" id="effectsValue">70%</div>
+    </div>
+
+    <div class="form-group">
+      <label for="language">Limbă:</label>
+      <select id="language">
+        <option value="ro">Română</option>
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+      </select>
+    </div>
+
+    <a href="menu.html"><button onclick="saveSettings()">💾 Salvează setările</button></a>
+    <div class="saved-message" id="savedMsg"></div>
+  </div>
+
+  <script>
+    const volumeSlider = document.getElementById("volume");
+    const volumeValue = document.getElementById("volumeValue");
+    const effectsSlider = document.getElementById("effects");
+    const effectsValue = document.getElementById("effectsValue");
+
+    volumeSlider.addEventListener("input", () => {
+      volumeValue.textContent = volumeSlider.value + "%";
+    });
+
+    effectsSlider.addEventListener("input", () => {
+      effectsValue.textContent = effectsSlider.value + "%";
+    });
+
+    function saveSettings() {
+      const server = document.getElementById("server").value;
+      const volume = volumeSlider.value;
+      const effects = effectsSlider.value;
+      const language = document.getElementById("language").value;
+
+      // Aici poți salva în localStorage sau trimite către backend dacă vrei
+      console.log("Setări salvate:", { server, volume, effects, language });
+
+      document.getElementById("savedMsg").textContent = "✔️ Setările au fost salvate!";
+      setTimeout(() => {
+        document.getElementById("savedMsg").textContent = "";
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
